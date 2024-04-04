@@ -1,10 +1,17 @@
 import Colors from '@/src/constants/Colors';
 import { StyleSheet, Text, View, Image } from 'react-native';
+import { Product } from '../types';
 
-const ProductListItem = ({product}) => {
+export const defaultPizzaImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/default.png'
+
+type ProductListItemProps = {
+    product: Product
+}
+
+const ProductListItem = ({product}: ProductListItemProps) => {
   return (
     <View style={styles.container}>
-      <Image source={{uri: product.image}} style={styles.image}/>
+      <Image source={{uri: product.image || defaultPizzaImage}} style={styles.image}/>
       <Text style={styles.title}>{product.name}</Text>
       <Text style={styles.price}>${product.price}</Text>
     </View>)
@@ -16,7 +23,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
     padding: 10,
-    borderRadius: 20
+    borderRadius: 20,
+    flex: 1,
+    margin: 10,
+    maxWidth: "50%"
   },
   title: {
     fontSize: 18,
@@ -29,6 +39,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    aspectRatio: 1
+    aspectRatio: 1,
+    resizeMode: 'contain'
   }
 });
